@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>师道 · 现代教育电子刊</title>
+    <style>
+        /* ---------- 全局重置与基础 ---------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', 'Segoe UI', 'Roboto', system-ui, -apple-system, sans-serif;
+            background: #f5f7f9; /* 极浅灰，衬托白色卡片 */
+            color: #1e2a3a;
+            line-height: 1.7;
+            padding: 30px 20px;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 40px 50px;
+            border-radius: 32px;
+            box-shadow: 0 20px 60px -12px rgba(0, 20, 30, 0.08);
+            transition: all 0.2s;
+        }
+
+        /* ---------- 刊头：简洁、留白、有呼吸感 ---------- */
+        .header {
+            text-align: center;
+            padding-bottom: 30px;
+            margin-bottom: 32px;
+            border-bottom: 2px solid #e8edf2;
+            position: relative;
+        }
+        .header::after {
+            content: "☯";
+            font-size: 1.8rem;
+            color: #9bb8b0;
+            position: absolute;
+            bottom: -22px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #fff;
+            padding: 0 16px;
+        }
+        .header h1 {
+            font-size: 3.4rem;
+            font-weight: 300;
+            letter-spacing: 12px;
+            color: #1d3e3a;
+            font-family: 'Times New Roman', serif;
+        }
+        .header .sub {
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: #7a8f8a;
+            letter-spacing: 6px;
+            margin-top: 2px;
+        }
+        .header .sub span {
+            margin: 0 12px;
+            color: #b7cfc7;
+        }
+        .header .issue {
+            font-size: 0.85rem;
+            color: #a1b5ae;
+            margin-top: 12px;
+            font-weight: 400;
+            letter-spacing: 2px;
+        }
+
+        /* ---------- 导航：干净、圆润、轻量 ---------- */
+        .nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px 16px;
+            background: #f8fafc;
+            padding: 10px 24px;
+            border-radius: 60px;
+            margin-bottom: 40px;
+        }
+        .nav a {
+            text-decoration: none;
+            color: #3a5a52;
+            font-weight: 500;
+            font-size: 0.92rem;
+            padding: 4px 14px;
+            border-radius: 40px;
+            transition: 0.25s;
+            letter-spacing: 0.3px;
+        }
+        .nav a:hover {
+            background: #d5e3de;
+            color: #1d3e3a;
+        }
+
+        /* ---------- 卷首语：卡片+左侧柔和线条 ---------- */
+        .editorial {
+            background: #f9fcfa;
+            padding: 32px 36px;
+            border-radius: 24px;
+            margin-bottom: 44px;
+            border-left: 4px solid #b3cfc4;
+            box-shadow: inset 0 1px 4px rgba(0,0,0,0.02);
+        }
+        .editorial h2 {
+            font-size: 1.6rem;
+            font-weight: 400;
+            color: #1d3e3a;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+        .editorial h2 small {
+            font-size: 1rem;
+            font-weight: 300;
+            color: #89a69d;
+            margin-left: 12px;
+        }
+        .editorial p {
+            color: #2d423c;
+            font-size: 1.04rem;
+        }
+        .editorial .byline {
+            text-align: right;
+            font-style: italic;
+            color: #7a9990;
+            margin-top: 16px;
+            font-weight: 300;
+        }
+
+        /* ---------- 栏目区块 ---------- */
+        .section {
+            margin-bottom: 48px;
+        }
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: #1d3e3a;
+            letter-spacing: 2px;
+            border-bottom: 1px solid #dce6e1;
+            padding-bottom: 8px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .section-title .emoji {
+            font-size: 1.4rem;
+            opacity: 0.7;
+        }
+        .section-title .line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, #dce6e1, transparent);
+        }
+
+        /* ---------- 文章卡片：现代、留白、轻盈 ---------- */
+        .article-card {
+            padding: 20px 0;
+            border-bottom: 1px solid #eef3f0;
+            transition: 0.2s;
+        }
+        .article-card:last-child {
+            border-bottom: none;
+        }
+        .article-card .title {
+            font-size: 1.22rem;
+            font-weight: 500;
+            color: #1f3a33;
+        }
+        .article-card .title a {
+            color: #1f3a33;
+            text-decoration: none;
+            border-bottom: 1px dotted transparent;
+            transition: 0.2s;
+        }
+        .article-card .title a:hover {
+            border-bottom-color: #9bb8b0;
+            color: #0f2a24;
+        }
+        .article-card .meta {
+            font-size: 0.82rem;
+            color: #8ba69b;
+            margin: 4px 0 6px 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px 16px;
+        }
+        .article-card .meta .tag {
+            display: inline-block;
+            background: #edf3f0;
+            padding: 0 14px;
+            border-radius: 30px;
+            color: #4f6e64;
+            font-weight: 400;
+            font-size: 0.75rem;
+            letter-spacing: 0.4px;
+        }
+        .article-card .summary {
+            color: #3d554d;
+            font-size: 0.98rem;
+            max-width: 90%;
+        }
+
+        /* ---------- 两列布局（用于展示“知行合一”栏目） ---------- */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        .grid-2 .article-card {
+            border-bottom: none;
+            padding: 16px 0;
+        }
+        .grid-2 .article-card .summary {
+            max-width: 100%;
+        }
+
+        /* ---------- 心灵驿站特殊样式：圆形装饰 ---------- */
+        .mindful-box {
+            background: #fafdfb;
+            border-radius: 28px;
+            padding: 28px 30px;
+            margin-top: 10px;
+            border: 1px solid #e3ece7;
+            position: relative;
+            overflow: hidden;
+        }
+        .mindful-box::before {
+            content: "○";
+            font-size: 12rem;
+            color: #e0ece5;
+            position: absolute;
+            right: -30px;
+            top: -40px;
+            opacity: 0.4;
+            font-weight: 100;
+        }
+        .mindful-box .title {
+            font-size: 1.3rem;
+            font-weight: 450;
+        }
+        .mindful-box .summary {
+            max-width: 90%;
+        }
+
+        /* ---------- 页脚 ---------- */
+        .footer {
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 1px solid #e2ebe6;
+            text-align: center;
+            font-size: 0.88rem;
+            color: #829f95;
+            letter-spacing: 0.5px;
+        }
+        .footer .contact {
+            margin-top: 6px;
+            font-weight: 300;
+        }
+        .footer .slogan {
+            margin-top: 12px;
+            font-size: 0.95rem;
+            color: #5f7d73;
+            font-style: italic;
+        }
+
+        /* ---------- 响应式 ---------- */
+        @media (max-width: 720px) {
+            .container { padding: 24px 18px; }
+            .header h1 { font-size: 2.4rem; letter-spacing: 6px; }
+            .nav { gap: 4px 10px; padding: 8px 14px; }
+            .grid-2 { grid-template-columns: 1fr; gap: 10px; }
+            .editorial { padding: 24px 20px; }
+            .article-card .summary { max-width: 100%; }
+            .mindful-box .summary { max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- ========== 刊头 ========== -->
+    <div class="header">
+        <h1>師 道</h1>
+        <div class="sub">尊师 · 重教 · 明理 <span>·</span> 知行合一</div>
+        <div class="issue">创刊号 · 2026年6月 · 总第一期 · 身心共育专号</div>
+    </div>
+
+    <!-- ========== 导航 ========== -->
+    <div class="nav">
+        <a href="#">卷首</a>
+        <a href="#">师道溯源</a>
+        <a href="#">杏坛人物</a>
+        <a href="#">教学手记</a>
+        <a href="#">心灵驿站</a>
+        <a href="#">知行实践</a>
+        <a href="#">学子心声</a>
+        <a href="#">教育观察</a>
+    </div>
+
+    <!-- ========== 卷首语 ========== -->
+    <div class="editorial">
+        <h2>🌱 卷首语 · 教育，是一场身心灵的共修 <small>主编手记</small></h2>
+        <p>当我们谈论教育时，往往只关注知识的传递与分数的起伏，却忘了教育首先是“人”与“人”的相遇。真正的学习，是认知的拓展，也是情感的流动，更是意志的锤炼。知行合一，不是一句口号，而是每一次课堂提问时的平等对话，每一本作业批改时的耐心洞察，每一次挫败后仍能站起来的勇气。这一期，我们尝试回到教育的原点——看见孩子，也看见教师自己的内心。唯有身心安顿，教学才能从容；唯有知行并进，成长方能完整。</p>
+        <div class="byline">—— 主编 敬上</div>
+    </div>
+
+    <!-- ========== 师道溯源 ========== -->
+    <div class="section">
+        <div class="section-title"><span class="emoji">📖</span> 师道溯源 <span class="line"></span></div>
+        <div class="article-card">
+            <div class="title"><a href="#">“知行合一”的教育哲学：从王阳明到当代课堂</a></div>
+            <div class="meta"><span class="tag">经典再读</span> 文 / 许明德</div>
+            <div class="summary">王阳明说：“知是行之始，行是知之成。”在分数至上的今天，我们重提知行合一，并非复古，而是为了找回教育中失落的一环——将知识转化为行动，将道理内化为品格。本文结合华小教学案例，探讨如何在语文、科学、道德课中践行“知而行之”。</div>
+        </div>
+    </div>
+
+    <!-- ========== 杏坛人物 ========== -->
+    <div class="section">
+        <div class="section-title"><span class="emoji">👩‍🏫</span> 杏坛人物 <span class="line"></span></div>
+        <div class="article-card">
+            <div class="title"><a href="#">陈淑芳老师：用正念呼吸开启每一天的课堂</a></div>
+            <div class="meta"><span class="tag">专访</span> 文 / 本刊记者</div>
+            <div class="summary">“上课前，我会带着孩子做三次深呼吸。”陈老师是槟城一所华小的班主任，她将正念练习融入晨读，让躁动的孩子学会安静，让焦虑的孩子学会觉察。她说：“教师的心定了，教室就稳了。身心灵的教育，从教师自己的身心开始。”</div>
+        </div>
+    </div>
+
+    <!-- ========== 教学手记 ========== -->
+    <div class="section">
+        <div class="section-title"><span class="emoji">✏️</span> 教学手记 <span class="line"></span></div>
+        <div class="article-card">
+            <div class="title"><a href="#">“慢下来”的勇气：一节科学课上的心灵对话</a></div>
+            <div class="meta"><span class="tag">经验分享</span> 文 / 张维伦</div>
+            <div class="summary">那天讲“植物的生长”，一个孩子突然说：“老师，我种的豆苗枯了，我好难过。”我本该继续讲知识点，却停下了。我们一起聊了失落、耐心和重新开始。那一刻，知识有了温度，科学连接了生命。教师如果只教“知”而不见“心”，教育便只剩空壳。</div>
+        </div>
+    </div>
+
+    <!-- ========== 心灵驿站（特殊区块） ========== -->
+    <div class="section">
+        <div class="section-title"><span class="emoji">🧘</span> 心灵驿站 · 教师自修 <span class="line"></span></div>
+        <div class="mindful-box">
+            <div class="title"><a href="#" style="color:#1f3a33;text-decoration:none;">给教师的每日十分钟：静坐、觉察、放下</a></div>
+            <div class="meta"><span class="tag">身心练习</span> 文 / 林静仪</div>
+            <div class="summary">我们总在“做”，很少“在”。本文提供一套简易的正念练习——清晨的呼吸扫描、午间的身体放松、傍晚的情绪记录。不为了达成什么，只为在忙碌中找回内在的平衡。教师的心安定了，才能传递安定的力量。</div>
+        </div>
+    </div>
+
+    <!-- ========== 知行实践（两列布局） ========== -->
+    <div class="section">
+        <div class="section-title"><span class="emoji">⚖️</span> 知行实践 · 从心到手的教育 <span class="line"></span></div>
+        <div class="grid-2">
+            <div class="article-card">
+                <div class="title"><a href="#">项目式学习：当“垃圾分类”变成一场公民行动</a></div>
+                <div class="meta"><span class="tag">案例</span> 文 / 郑惠玲</div>
+                <div class="summary">四年级的孩子在科学课上学了环保知识，但真正改变他们的是走进社区、动手分类、设计宣传海报。知识只有被使用，才成为力量。知行合一的课堂，从来不在围墙之内。</div>
+            </div>
+            <div class="article-card">
+                <div class="title"><a href="#">作文课上的心灵书写：让文字连接自我</a></div>
+                <div class="meta"><span class="tag">方法</span> 文 / 陈韵如</div>
+                <div class="summary">我们总教孩子写“有意义”的作文，却很少教他们写“真实”的作文。让三年级的孩子写下“今天我最开心的事”或“我最怕的事”，那些稚嫩的文字里藏着最深的感知。写作，是知与行的桥梁，也是心灵的一面镜子。</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== 学子心声 ========== -->
+    <div class="section">
+        <div class="section-title"><span class="emoji">💬</span> 学子心声 <span class="line"></span></div>
+        <div class="article-card">
+            <div class="title"><a href="#">“老师，您的那次拥抱让我不再害怕”</a></div>
+            <div class="meta"><span class="tag">学生来稿</span> 文 / 李佳恩（五年级）</div>
+            <div class="summary">我一年级时很胆小，不敢举手。有一次我鼓起勇气回答问题，说错了，全班笑了。老师走到我身边，轻轻抱了我一下，说：“谢谢你敢说出来。”从那以后，我知道教室是安全的地方。老师不只是教知识，还教我们勇敢。</div>
+        </div>
+    </div>
+
+    <!-- ========== 教育观察 ========== -->
+    <div class="section">
+        <div class="section-title"><span class="emoji">🔍</span> 教育观察 <span class="line"></span></div>
+        <div class="article-card">
+            <div class="title"><a href="#">从评估改革看教育之“心”：诊断而非审判</a></div>
+            <div class="meta"><span class="tag">政策评论</span> 文 / 郑文龙</div>
+            <div class="summary">2026年四年级评估强调“诊断”功能，这恰恰契合了身心灵教育的核心——关注每一个孩子的起点，而非统一终点。当教师学会用评估数据去理解而非评判，教育便从“筛选”走向了“滋养”。本文探讨新制度下如何平衡标准与温度。</div>
+        </div>
+    </div>
+
+    <!-- ========== 页脚 ========== -->
+    <div class="footer">
+        <p>《师道》电子刊物 · 马来西亚华文教育网</p>
+        <p class="contact">投稿：joey.ng.j.e@gmail.com.my ｜ 本刊鼓励转载，请保留出处</p>
+        <div class="slogan">—— 知是行之始 · 行是知之成 ——</div>
+    </div>
+
+</div>
+</body>
+</html>
